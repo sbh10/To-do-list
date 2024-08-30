@@ -1,0 +1,61 @@
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="to_do_list.css" />
+        <link rel="icon" type="favicon.ico" href="images_to_dou_list\favicon.ico">
+        
+        <title>La tou-dou liste des enfants</title>
+    </head>
+    
+    <body>
+        <h1>La tou-dou liste des enfants</h1>
+        <div class="grille"> 
+            <img src="images_to_dou_list\pdinovert.png" alt = "dinosaure" class ="dinovert" draggrable="true">
+            <img src="images_to_dou_list\pfusee.png" alt = "fusee" class ="fusee" draggrable="true">
+            <img src="images_to_dou_list\plumiere.png" alt = "lumiere" class ="lumiere" draggrable="true">
+            <img src="images_to_dou_list\ppeluche.png" alt = "peluche" class ="peluche" draggrable="true">
+            <img src="images_to_dou_list\pdino.png" alt = "dino" class ="dino" draggrable="true">
+        </div>
+    
+        <div class="container">
+            <div class="champs">
+            <input type="text" id="taskinput"placeholder="Ajouter une tâche">
+            <button onclick="addTask()"><ion-icon name="add-circle-outline"></ion-icon></button>
+            
+            </div>
+        <ul id="taskList">
+        </ul>
+    
+        </div>    
+
+        <div class="containerSlider">
+        </div class="slider">
+            <div class="sliderInner">
+                <div class="slide"><img src="images_to_dou_list\mario.jpg" alt="mario et luigi"></div>
+                <div class="slide"><img src="images_to_dou_list\fusee.jpg" alt="fusee décolle"></div>
+                <div class="slide"><img src="images_to_dou_list\lumière.jpg" alt="lumière belle et la bête"></div>
+                <div class="slide"><img src="images_to_dou_list\peluche.jpg" alt="monstre et cie"></div>
+                <div class="slide"><img src="images_to_dou_list\dino.jpg" alt="un dinosaure"></div>
+                <div class="slide"><img src="images_to_dou_list\figurine.jpg" alt="figurine Légo"></div>
+            </div> 
+            <div class="sliderControl">
+                    <button id="prev"><img src="images_to_dou_list\link-previous.png" alt="précédent" width=24px height=24px></button>
+                    <button id="next"><img src="images_to_dou_list\link-next.png" alt="suivant" width=24px height=24px></button>          
+            </div>   
+            
+        </div>
+    </div>
+
+ 
+        
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<script src="to_do_list.js"></script>
+</body>
+
+</html>

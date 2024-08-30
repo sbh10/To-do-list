@@ -1,0 +1,195 @@
+body {
+  display: flex;
+  justify-content: flex;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fcfbf6;
+  color: #bdb04d;
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: 5, 50px;
+  grid-template-rows: 100px 100px;
+  max-width: 800px;
+  width: auto;
+  margin: 30px auto;
+  border-radius: 10px;
+  place-content: center;
+  text-align: center;
+  column-gap: 0;
+  padding: 5px;
+  background: rgba(148, 215, 190, 0.5);
+  grid-template-areas:
+    "peluche fusee dino lumiere dinovert"
+    "peluche fusee dino lumiere dinovert";
+}
+
+.grille img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.dinovert {
+  grid-area: dinovert;
+  border-radius: 10px;
+}
+.fusee {
+  grid-area: fusee;
+  border-radius: 10px;
+}
+.lumiere {
+  grid-area: lumiere;
+  border-radius: 10px;
+}
+.dino {
+  grid-area: dino;
+  border-radius: 10px;
+}
+.peluche {
+  grid-area: peluche;
+  border-radius: 10px;
+}
+
+.container {
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.champs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+h1 {
+  margin-bottom: 20px;
+  margin-top: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type="text"] {
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  border-color: #1b1909;
+}
+
+button {
+  margin-left: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+ul {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(148, 215, 190, 0.2);
+  color: #1b1909;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  position: relative;
+}
+
+ion-icon {
+  font-size: 20px;
+  margin-right: 2px;
+  background: #bdb04d;
+  padding: 0.5rem;
+  color: #94d7be;
+  border-radius: 50%;
+}
+
+.delete {
+  background: #bdb04d;
+  color: #94d7be;
+}
+
+.modify {
+  background: #bdb04d;
+  color: #94d7be;
+}
+
+.uncheck {
+  background: #bdb04d;
+  color: #94d7be;
+}
+
+li.strikethrough {
+  text-decoration: line-through;
+}
+
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+}
+
+.containerSlider {
+  overflow: hidden;
+}
+
+.slider {
+  position: relative;
+}
+
+.sliderInner {
+  display: flex;
+  overflow: hidden;
+  max-width: 800px;
+  width: 200px;
+  flex-wrap: nowrap;
+}
+
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  transition: 0.8s ease-in-out;
+}
+
+.slide img {
+  width: 100%;
+  max-width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  justify-content: center;
+  align-items: center;
+  display: block;
+}
+
+.sliderControl {
+  position: relative;
+  z-index: auto;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sliderControl button {
+  padding: 10px;
+  color: #bdb04d;
+  background-color: rgba(148, 215, 190, 0.5);
+  border: 2px, #94d7be;
+  border-radius: 50px;
+}
