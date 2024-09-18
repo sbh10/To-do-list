@@ -82,66 +82,78 @@ function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function changeSlide() {
-  "use strict";
-  const slideTimeout = 5000;
-  const prev = document.querySelector("#prev");
-  const next = document.querySelector("#next");
-  const $slides = document.querySelectorAll(".slide");
-  let intervalId;
-  let currentSlide = 1;
+function filterStrikethroughTasks() {
+  let strikethroughTasks = [];
 
-  function slideTo(index) {
-    currentSlide = index >= $slides.length || index < 1 ? 0 : index;
-    $slides.forEach(
-      ($elt) => ($elt.style.transform = `translateX(-${currentSlide * 100}%)`)
-    );
-  }
-
-  function showSlide() {
-    slideTo(currentSlide);
-    currentSlide++;
-  }
-
-  prev.addEventListener("click", () => slideTo(--currentSlide));
-  next.addEventListener("click", () => slideTo(++currentSlide));
-  intervalId = setInterval(showSlide, slideTimeout);
-
-  $slides.forEach(($elt) => {
-    let startX;
-    let endX;
-
-    $elt.addEventListener(
-      "mouseover",
-      () => {
-        clearInterval(intervalId);
-      },
-      false
-    );
-
-    $elt.addEventListener(
-      "mouseout",
-      () => {
-        intervalId = setInterval(showSlide, slideTimeout);
-      },
-      false
-    );
-
-    $elt.addEventListener("touchstart", (event) => {
-      startX = event.touches[0].clientX;
-    });
-
-    $elt.addEventListener("touchend", (event) => {
-      endX = event.changedTouches[0].clientX;
-      if (startX > endX) {
-        slideTo(currentSlide + 1);
-      } else if (startX < endX) {
-        slideTo(currentSlide - 1);
-      }
-    });
+  taskList.querySelectorAll("li").forEach(function (li) {
+    if (li.style.textDecoration === "line-through") {
+      strikethroughTasks.push(li.textContent.trim());
+    }
   });
+  return strikethroughTasks;
 }
-changeSlide();
+
+function showStrikethroughTasks() {
+  let filteredTasksDiv = document.getElementById("filteredTasks");
+  let strikethroughTasks = filterStrikethroughTasks();
+
+  // Effacer le contenu précédent
+  filteredTasksDiv.innerHTML = "";
+
+  if (strikethroughTasks.length === 0) {
+    filteredTasksDiv.innerHTML = "<p>Il faut s'y mettre !</p>";
+  } else {
+    let ul = document.createElement("ul");
+    strikethroughTasks.forEach(function (task) {
+      let li = document.createElement("li");
+      li.textContent = task;
+      ul.appendChild(li);
+    });
+    filteredTasksDiv.appendChild(ul);
+  }
+}
+
+function filterNonStrikethroughTasks() {
+  let nonStrikethroughTasks = [];
+
+  taskList.querySelectorAll("li").forEach(function (li) {
+    if (li.style.textDecoration !== "line-through") {
+      nonStrikethroughTasks.push(li.textContent.trim());
+    }
+  });
+
+  return nonStrikethroughTasks;
+}
+
+// Nouvelle fonction pour afficher les tâches non barrées
+function showNonStrikethroughTasks() {
+  let filteredTasksDiv = document.getElementById("filteredTasks");
+  let nonStrikethroughTasks = filterNonStrikethroughTasks();
+
+  // Effacer le contenu précédent
+  filteredTasksDiv.innerHTML = "";
+
+  if (nonStrikethroughTasks.length === 0) {
+    filteredTasksDiv.innerHTML = "<p>Bravo ! Tu as tout fait.</p>";
+  } else {
+    let ul = document.createElement("ul");
+    nonStrikethroughTasks.forEach(function (task) {
+      let li = document.createElement("li");
+      li.textContent = task;
+      ul.appendChild(li);
+    });
+    filteredTasksDiv.appendChild(ul);
+  }
+}
+
+function changeColor(idButton, color) {
+  const button = document.getElementById(idButton);
+  if (button.style.backgroundColor === "transparent") {
+    button.style.backgroundColor = color;
+  } else {
+    button.style.backgroundColor = "transparent";
+  }
+}
 
 //CI-DESSOUS EST A GARDER EN COMM JUSQU'\A COMPRENDRE LOCAL STORAGE
 

@@ -4,45 +4,45 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="to_do_list.css" />
-        <link rel="icon" type="favicon.ico" href="images_to_dou_list\favicon.ico">
+        <link rel="icon" type="favicon.ico" href="images_to_dou_list\crayon.ico">
         
         <title>La tou-dou liste des enfants</title>
     </head>
+
+    <header>
+        <div id ="banniere" draggable="true"></div>
+    </header>
     
     <body>
-        <h1>La tou-dou liste des enfants</h1>
-        <div class="grille"> 
-            <img src="images_to_dou_list\pdinovert.png" alt = "dinosaure" class ="dinovert" draggrable="true">
-            <img src="images_to_dou_list\pfusee.png" alt = "fusee" class ="fusee" draggrable="true">
-            <img src="images_to_dou_list\plumiere.png" alt = "lumiere" class ="lumiere" draggrable="true">
-            <img src="images_to_dou_list\ppeluche.png" alt = "peluche" class ="peluche" draggrable="true">
-            <img src="images_to_dou_list\pdino.png" alt = "dino" class ="dino" draggrable="true">
-        </div>
-    
+        <h1>LA TOU-DOU LISTE</h1>
+        
         <div class="container">
+
             <div class="champs">
-            <input type="text" id="taskinput"placeholder="Ajouter une tâche">
-            <button onclick="addTask()"><ion-icon name="add-circle-outline"></ion-icon></button>
-            
+                <input type="text" id="taskinput"placeholder="J'écris ce que je dois faire">
+                <button onclick="addTask()"><ion-icon name="add-circle-outline"></ion-icon></button>  
             </div>
-        <ul id="taskList">
-        </ul>
-    
+
+            <div class="containerFilter">
+                <button onclick="showStrikethroughTasks()" id="button_done">C'est déjà fait</button> 
+                <button onclick="showNonStrikethroughTasks()" id="button_undone">Reste à faire</button>
+                
+            </div>
+
+            <ul id="taskList">
+            </ul>
+            <div id="filteredTasks"></div>
         </div>    
 
-        <div class="containerSlider">
-        </div class="slider">
-            <div class="sliderInner">
-                <div class="slide"><img src="images_to_dou_list\mario.jpg" alt="mario et luigi"></div>
-                <div class="slide"><img src="images_to_dou_list\fusee.jpg" alt="fusee décolle"></div>
-                <div class="slide"><img src="images_to_dou_list\lumière.jpg" alt="lumière belle et la bête"></div>
-                <div class="slide"><img src="images_to_dou_list\peluche.jpg" alt="monstre et cie"></div>
-                <div class="slide"><img src="images_to_dou_list\dino.jpg" alt="un dinosaure"></div>
-                <div class="slide"><img src="images_to_dou_list\figurine.jpg" alt="figurine Légo"></div>
-            </div> 
-            <div class="sliderControl">
-                    <button id="prev"><img src="images_to_dou_list\link-previous.png" alt="précédent" width=24px height=24px></button>
-                    <button id="next"><img src="images_to_dou_list\link-next.png" alt="suivant" width=24px height=24px></button>          
+        
+        
+        <div class="containerTracker">
+            <h2>Mon humeur aujourd'hui</h2>
+        <div class="moodSelector">
+        <button id="happy" onclick="changeColor('happy', '#49F3BA')"><img src="images_to_dou_list\happy.png" alt="heureux" width=150px height=150px></button>
+        <button id="study" onclick="changeColor('study', '#F6EB89')"><img src="images_to_dou_list\student.png" alt="j'étudie" width=150px height=150px></button>
+        <button id="sad" onclick="changeColor('sad', '#F3A070')"><img src="images_to_dou_list\sad.png" alt="triste" width=150px height=150px></button>
+
             </div>   
             
         </div>
