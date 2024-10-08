@@ -10,3 +10,7 @@ A FAIRE :
 5/ améliorer le design de la to-do list
 6/ ajouter un filtre tâches terminées/non terminées
 7/ pouvoir sauvegarder les tâches
+
+EDIT 18/09/2024 :
+-retirer la grille d'image, le caroussel
+-ajouter un moodSelector
