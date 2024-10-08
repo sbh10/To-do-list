@@ -1,6 +1,7 @@
 let taskList = document.getElementById("taskList");
 let taskinput = document.getElementById("taskinput");
 
+//AJOUTER UNE TACHE
 function addTask() {
   let taskText = taskinput.value;
   if (taskText === "") {
@@ -10,6 +11,7 @@ function addTask() {
   let li = document.createElement("li");
   li.innerHTML = taskText;
 
+  //INSERER LE BOUTON '+' POUR AJOUTER UNE TACHE
   let editButton = document.createElement("button");
   editButton.innerHTML =
     '<ion-icon name="pencil-outline" class="modify"></ion-icon>';
@@ -17,6 +19,7 @@ function addTask() {
     editTask(li);
   };
 
+  //INSERER LE BOUTON POUR SUPPRIMER UNE TACHE
   let deleteButton = document.createElement("button");
   deleteButton.innerHTML =
     '<ion-icon name="trash-outline" class="delete"></ion-icon>';
@@ -24,6 +27,7 @@ function addTask() {
     deleteTask(li);
   };
 
+  //INSERER LE BOUTON POUR COCHER UNE TACHE
   let uncheckButton = document.createElement("button");
   uncheckButton.innerHTML =
     '<ion-icon name="square-outline" class="uncheck"></ion-icon>';
@@ -31,6 +35,7 @@ function addTask() {
     toggleStrikethrough(li);
   };
 
+  //POUR RELIER A LA LISTE PRINCIPALE
   li.appendChild(editButton);
   li.appendChild(deleteButton);
   li.appendChild(uncheckButton);
@@ -39,13 +44,14 @@ function addTask() {
   taskinput.value = "";
   saveTasks();
 }
-
+//AJOUTER UNE TACHE EN TAPANT LA TOUCHE 'ENTREE" SUR LE CLAVIER
 taskinput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     addTask();
   }
 });
 
+//FONCTION POUR MODIFIER UNE TACHE
 function editTask(task) {
   let taskTextElement = task.firstChild;
   let taskText = taskTextElement.textContent;
@@ -60,11 +66,13 @@ function editTask(task) {
   saveTasks();
 }
 
+//FONCTION POUR SUPPRIMER UNE TACHE
 function deleteTask(task) {
   taskList.removeChild(task);
   saveTasks();
 }
 
+//FONCTION POUR RAYER UNE TACHE
 function toggleStrikethrough(li) {
   if (li.style.textDecoration === "line-through") {
     li.style.textDecoration = "none";
@@ -74,6 +82,7 @@ function toggleStrikethrough(li) {
   saveTasks();
 }
 
+//FONCTION POUR ENREGISTRER UNE TACHE
 function saveTasks() {
   let tasks = [];
   taskList.querySelectorAll("li").forEach(function (li) {
@@ -82,70 +91,55 @@ function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function filterStrikethroughTasks() {
-  let strikethroughTasks = [];
+//FONCTION POUR MASQUER/DEMASQUER LES TACHES RAYEES
+let tasksHidden = false;
 
-  taskList.querySelectorAll("li").forEach(function (li) {
-    if (li.style.textDecoration === "line-through") {
-      strikethroughTasks.push(li.textContent.trim());
-    }
-  });
-  return strikethroughTasks;
-}
+function hideStrikethroughTasks() {
+  const taskList = document.getElementById("taskList");
+  const filteredTasksDiv = document.getElementById("filteredTasks");
 
-function showStrikethroughTasks() {
-  let filteredTasksDiv = document.getElementById("filteredTasks");
-  let strikethroughTasks = filterStrikethroughTasks();
-
-  // Effacer le contenu précédent
-  filteredTasksDiv.innerHTML = "";
-
-  if (strikethroughTasks.length === 0) {
-    filteredTasksDiv.innerHTML = "<p>Il faut s'y mettre !</p>";
-  } else {
-    let ul = document.createElement("ul");
-    strikethroughTasks.forEach(function (task) {
-      let li = document.createElement("li");
-      li.textContent = task;
-      ul.appendChild(li);
+  // Alterner entre masquage et affichage
+  if (tasksHidden) {
+    // Réafficher toutes les tâches
+    taskList.querySelectorAll("li").forEach(function (li) {
+      li.style.visibility = "visible";
     });
-    filteredTasksDiv.appendChild(ul);
+    // Réinitialiser le message
+    filteredTasksDiv.innerHTML = "";
+    tasksHidden = false;
+  } else {
+    // Masquer les tâches barrées
+    let strikethroughTasks = [];
+    taskList.querySelectorAll("li").forEach(function (li) {
+      if (li.style.textDecoration === "line-through") {
+        strikethroughTasks.push(li.textContent.trim());
+        li.style.visibility = "hidden";
+      }
+    });
+
+    tasksHidden = true;
   }
 }
 
-function filterNonStrikethroughTasks() {
-  let nonStrikethroughTasks = [];
+//FONCTION POUR TRIER LES TACHES PAR STATUT (rayée en haut/non-rayée en bas de liste)
+function sortTasksByStrikethrough() {
+  const taskList = document.getElementById("taskList");
+  const tasks = Array.from(taskList.querySelectorAll("li"));
 
-  taskList.querySelectorAll("li").forEach(function (li) {
-    if (li.style.textDecoration !== "line-through") {
-      nonStrikethroughTasks.push(li.textContent.trim());
-    }
+  // Trier les tâches en mettant celles avec 'line-through' à la fin
+  tasks.sort((a, b) => {
+    const aHasLineThrough = a.style.textDecoration === "line-through";
+    const bHasLineThrough = b.style.textDecoration === "line-through";
+
+    // Retourne 1 si a doit être après b, -1 sinon
+    return aHasLineThrough - bHasLineThrough;
   });
 
-  return nonStrikethroughTasks;
+  // Réorganiser les tâches dans le DOM en fonction de l'ordre trié
+  tasks.forEach((task) => taskList.appendChild(task));
 }
 
-// Nouvelle fonction pour afficher les tâches non barrées
-function showNonStrikethroughTasks() {
-  let filteredTasksDiv = document.getElementById("filteredTasks");
-  let nonStrikethroughTasks = filterNonStrikethroughTasks();
-
-  // Effacer le contenu précédent
-  filteredTasksDiv.innerHTML = "";
-
-  if (nonStrikethroughTasks.length === 0) {
-    filteredTasksDiv.innerHTML = "<p>Bravo ! Tu as tout fait.</p>";
-  } else {
-    let ul = document.createElement("ul");
-    nonStrikethroughTasks.forEach(function (task) {
-      let li = document.createElement("li");
-      li.textContent = task;
-      ul.appendChild(li);
-    });
-    filteredTasksDiv.appendChild(ul);
-  }
-}
-
+//FONCTION POUR CHANGER LA COULEUR DES ILLUSTRATIONS QUI INDIQUENT L'HUMEUR
 function changeColor(idButton, color) {
   const button = document.getElementById(idButton);
   if (button.style.backgroundColor === "transparent") {
