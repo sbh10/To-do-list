@@ -140,7 +140,7 @@ ion-icon {
   color: #1b1909;
 }
 
-li.strikethrough {
+.strikethrough {
   text-decoration: line-through;
 }
 
