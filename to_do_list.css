@@ -41,6 +41,18 @@ body {
   /*margin-bottom: 15px;*/
 }
 
+#counter {
+  margin-bottom: 20px;
+  margin-top: 30px;
+  font-family: "Croissant One";
+  font-weight: 900;
+  font-size: large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(148, 215, 190);
+}
+
 #filteredTasks {
   width: 50%;
   ul li {
@@ -112,7 +124,6 @@ ul li {
   border-radius: 5px;
   margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: grab;
   position: relative;
 }
 

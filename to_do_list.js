@@ -1,17 +1,9 @@
 let taskList = document.getElementById("taskList");
 let taskinput = document.getElementById("taskinput");
 
-//AJOUTER UNE TACHE
-function addTask() {
-  let taskText = taskinput.value;
-  if (taskText === "") {
-    return;
-  }
-
-  let li = document.createElement("li");
-  li.innerHTML = taskText;
-
-  //INSERER LE BOUTON '+' POUR AJOUTER UNE TACHE
+//FONCTION POUR CREER LES BOUTONS DE MOFIFICATION DES TACHES
+function createTaskElements(li) {
+  //INSERER LE BOUTON POUR AJOUTER UNE TACHE
   let editButton = document.createElement("button");
   editButton.innerHTML =
     '<ion-icon name="pencil-outline" class="modify"></ion-icon>';
@@ -39,11 +31,25 @@ function addTask() {
   li.appendChild(editButton);
   li.appendChild(deleteButton);
   li.appendChild(uncheckButton);
+}
+
+//AJOUTER UNE TACHE
+function addTask() {
+  let taskText = taskinput.value;
+  if (taskText === "") {
+    return;
+  }
+
+  let li = document.createElement("li");
+  li.innerHTML = taskText;
+
+  createTaskElements(li);
   taskList.appendChild(li);
 
   taskinput.value = "";
   saveTasks();
 }
+
 //AJOUTER UNE TACHE EN TAPANT LA TOUCHE 'ENTREE" SUR LE CLAVIER
 taskinput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
@@ -68,27 +74,24 @@ function editTask(task) {
 
 //FONCTION POUR SUPPRIMER UNE TACHE
 function deleteTask(task) {
+  if (task.style.textDecoration === "line-through") {
+    count--; // Ajuste le compteur si une tâche complétée est supprimée
+  }
   taskList.removeChild(task);
+  updateCounter();
   saveTasks();
 }
 
 //FONCTION POUR RAYER UNE TACHE
 function toggleStrikethrough(li) {
-  if (li.style.textDecoration === "line-through") {
-    li.style.textDecoration = "none";
-  } else {
-    li.style.textDecoration = "line-through";
+  const isStrikethrough = li.style.textDecoration !== "line-through";
+  {
+    li.style.textDecoration = isStrikethrough ? "line-through" : "none";
   }
+  // Met à jour le compteur en fonction de l'état barré
+  count += isStrikethrough ? 1 : -1;
+  updateCounter();
   saveTasks();
-}
-
-//FONCTION POUR ENREGISTRER UNE TACHE
-function saveTasks() {
-  let tasks = [];
-  taskList.querySelectorAll("li").forEach(function (li) {
-    tasks.push(li.textContent.trim());
-  });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 //FONCTION POUR MASQUER/DEMASQUER LES TACHES RAYEES
@@ -139,6 +142,30 @@ function sortTasksByStrikethrough() {
   tasks.forEach((task) => taskList.appendChild(task));
 }
 
+//FONCTION POUR COMPTER LE NOMBRE DE TACHES REALISEES
+let count = 0;
+
+function updateCounter() {
+  document.getElementById("counter").textContent =
+    "Bravo, tu as réalisé " +
+    count +
+    " tâche" +
+    (count !== 1 ? "s" : "") +
+    " !";
+}
+
+function toggleStrikethrough(li) {
+  const isStrikethrough = li.style.textDecoration !== "line-through";
+
+  // Appliquer ou retirer le style barré
+  li.style.textDecoration = isStrikethrough ? "line-through" : "none";
+  count += isStrikethrough ? 1 : -1;
+  // Mettre à jour le compteur en fonction de l'état barré
+  updateCounter(isStrikethrough);
+
+  saveTasks();
+}
+
 //FONCTION POUR CHANGER LA COULEUR DES ILLUSTRATIONS QUI INDIQUENT L'HUMEUR
 function changeColor(idButton, color) {
   const button = document.getElementById(idButton);
@@ -149,47 +176,37 @@ function changeColor(idButton, color) {
   }
 }
 
-//CI-DESSOUS EST A GARDER EN COMM JUSQU'\A COMPRENDRE LOCAL STORAGE
+//SAUVEGARDER DANS LOCAL STORAGE
+function saveTasks() {
+  const tasks = [];
+  document.querySelectorAll("#taskList li").forEach((li) => {
+    tasks.push({
+      text: li.firstChild.textContent,
+      completed: li.style.textDecoration === "line-through",
+    });
+  });
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
-// function loadTasks() {
-//   const tasks = localStorage.getItem("tasks");
-//   return tasks ? JSON.parse(tasks) : [];
-// }
+function loadTasks() {
+  const tasks = JSON.parse(localStorage.getItem("tasks"));
+  if (tasks) {
+    tasks.forEach((task) => {
+      const li = document.createElement("li");
+      li.textContent = task.text;
+      li.style.textDecoration = task.completed ? "line-through" : "none";
 
-// function displayTasks(tasks) {
-//    const displayedTasks = JSON.parse(localStorage.getItem("tasks"));
-//     if (displayedTasks) {
-//     tasks.forEach(dispTask => addTask(dispTask));
-//     }
-// }
-//     document.addEventListener('DOMContentLoaded', loadTasks);
+      createTaskElements(li); // Crée les boutons pour la tâche
+      taskList.appendChild(li);
 
-//     loadTasks();
-//     //displayTasks();
+      if (task.completed) {
+        count++;
+      }
+    });
+    updateCounter(); // Met à jour le compteur après le chargement
+  }
+}
 
-//CI-DESSOUS EST A GARDER JUSQu'a COMPRENDRE DRAGGABLE
-// let draggableElement = document.addEventListener('DOMContentLoaded', function () {
-//     const draggableElement = document.querySelector('taskinput')
-
-//     let isDragging = false;
-//     let offsetY = 0;
-
-//     draggableElement.addEventListener('mousedown', (event) => {
-//         isDragging = true;
-//         offsetY = e.clientY - draggableElement.getBoundingClientRect().top;
-//         draggableElement.style.cursor = 'grabbing';
-
-//     });
-
-//     document.addEventListener('mousemove', (event) => {
-//         if (isDragging) {
-//             draggableElement.style.top = `${e.clientY - offsetY}px`;
-//         }
-//     });
-
-//     document.addEventListener('mouseup', () => {
-//         isDragging = false;
-//         draggableElement.style.cursor = 'grab';
-//     });
-//     saveTasks()
-// });
+document.addEventListener("DOMContentLoaded", () => {
+  loadTasks();
+});
