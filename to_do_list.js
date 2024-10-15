@@ -3,6 +3,9 @@ let taskinput = document.getElementById("taskinput");
 
 //FONCTION POUR CREER LES BOUTONS DE MOFIFICATION DES TACHES
 function createTaskElements(li) {
+  let buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("button-container"); // Ajouter une classe pour le style
+
   //INSERER LE BOUTON POUR AJOUTER UNE TACHE
   let editButton = document.createElement("button");
   editButton.innerHTML =
@@ -28,30 +31,43 @@ function createTaskElements(li) {
   };
 
   //POUR RELIER A LA LISTE PRINCIPALE
-  li.appendChild(editButton);
-  li.appendChild(deleteButton);
-  li.appendChild(uncheckButton);
+  buttonContainer.appendChild(editButton);
+  buttonContainer.appendChild(deleteButton);
+  buttonContainer.appendChild(uncheckButton);
+
+  li.appendChild(buttonContainer);
 }
 
 //AJOUTER UNE TACHE
 function addTask() {
+  if (!taskList || !taskinput) {
+    console.error("taskList ou taskinput n'existe pas dans le DOM.");
+    return;
+  }
+
   let taskText = taskinput.value;
   if (taskText === "") {
     return;
   }
 
   let li = document.createElement("li");
-  li.innerHTML = taskText;
+
+  let textSection = document.createElement("div");
+  textSection.classList.add("text-section");
+  textSection.textContent = taskText;
+
+  li.appendChild(textSection);
 
   createTaskElements(li);
   taskList.appendChild(li);
 
   taskinput.value = "";
   saveTasks();
+  updateCounter();
 }
 
 //AJOUTER UNE TACHE EN TAPANT LA TOUCHE 'ENTREE" SUR LE CLAVIER
-taskinput.addEventListener("keydown", (event) => {
+taskinput?.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     addTask();
   }
@@ -77,7 +93,7 @@ function deleteTask(task) {
   if (task.style.textDecoration === "line-through") {
     count--; // Ajuste le compteur si une tâche complétée est supprimée
   }
-  taskList.removeChild(task);
+  taskList?.removeChild(task);
   updateCounter();
   saveTasks();
 }
@@ -104,16 +120,21 @@ function hideStrikethroughTasks() {
   // Alterner entre masquage et affichage
   if (tasksHidden) {
     // Réafficher toutes les tâches
-    taskList.querySelectorAll("li").forEach(function (li) {
-      li.style.visibility = "visible";
+    taskList?.querySelectorAll("li").forEach(function (li) {
+      if (li) {
+        // Vérifier que li n'est pas null
+        li.style.visibility = "visible";
+      }
     });
     // Réinitialiser le message
-    filteredTasksDiv.innerHTML = "";
+    if (filteredTasksDiv) {
+      filteredTasksDiv.innerHTML = "";
+    }
     tasksHidden = false;
   } else {
     // Masquer les tâches barrées
     let strikethroughTasks = [];
-    taskList.querySelectorAll("li").forEach(function (li) {
+    taskList?.querySelectorAll("li").forEach(function (li) {
       if (li.style.textDecoration === "line-through") {
         strikethroughTasks.push(li.textContent.trim());
         li.style.visibility = "hidden";
@@ -131,27 +152,44 @@ function sortTasksByStrikethrough() {
 
   // Trier les tâches en mettant celles avec 'line-through' à la fin
   tasks.sort((a, b) => {
-    const aHasLineThrough = a.style.textDecoration === "line-through";
-    const bHasLineThrough = b.style.textDecoration === "line-through";
+    const aHasLineThrough = a.style.textDecoration === "line-through" ? 1 : 0;
+    const bHasLineThrough = b.style.textDecoration === "line-through" ? 1 : 0;
 
     // Retourne 1 si a doit être après b, -1 sinon
     return aHasLineThrough - bHasLineThrough;
   });
 
   // Réorganiser les tâches dans le DOM en fonction de l'ordre trié
-  tasks.forEach((task) => taskList.appendChild(task));
+  tasks.forEach((task) => taskList?.appendChild(task));
 }
 
 //FONCTION POUR COMPTER LE NOMBRE DE TACHES REALISEES
 let count = 0;
 
 function updateCounter() {
-  document.getElementById("counter").textContent =
-    "Bravo, tu as réalisé " +
-    count +
-    " tâche" +
-    (count !== 1 ? "s" : "") +
-    " !";
+  const totalTasks = document.querySelectorAll("#taskList li").length;
+  const percentage = totalTasks > 0 ? (count / totalTasks) * 100 : 0;
+
+  const counterElement = document.getElementById("counter");
+  if (counterElement) {
+    counterElement.textContent =
+      (count > 0 ? "Bravo, " : "") + // Affiche "Bravo" seulement si count > 0
+      "tu as réalisé " +
+      count +
+      " tâche" +
+      (count !== 1 ? "s" : "") +
+      " sur " +
+      totalTasks +
+      " tâche" +
+      (totalTasks !== 1 ? "s" : "") +
+      " !";
+  }
+  // Mettre à jour la largeur de la barre de progression
+  const progressBarElement = document.getElementById("progressBar");
+  if (progressBarElement) {
+    // Mettre à jour la largeur de la barre de progression
+    progressBarElement.style.width = percentage + "%";
+  }
 }
 
 function toggleStrikethrough(li) {
@@ -164,16 +202,6 @@ function toggleStrikethrough(li) {
   updateCounter(isStrikethrough);
 
   saveTasks();
-}
-
-//FONCTION POUR CHANGER LA COULEUR DES ILLUSTRATIONS QUI INDIQUENT L'HUMEUR
-function changeColor(idButton, color) {
-  const button = document.getElementById(idButton);
-  if (button.style.backgroundColor === "transparent") {
-    button.style.backgroundColor = color;
-  } else {
-    button.style.backgroundColor = "transparent";
-  }
 }
 
 //SAUVEGARDER DANS LOCAL STORAGE
@@ -197,13 +225,15 @@ function loadTasks() {
       li.style.textDecoration = task.completed ? "line-through" : "none";
 
       createTaskElements(li); // Crée les boutons pour la tâche
-      taskList.appendChild(li);
+      taskList?.appendChild(li);
 
+      // Incrémenter le compteur pour les tâches complétées
       if (task.completed) {
         count++;
       }
     });
     updateCounter(); // Met à jour le compteur après le chargement
+    sortTasksByStrikethrough();
   }
 }
 

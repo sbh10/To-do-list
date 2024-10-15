@@ -1,16 +1,51 @@
-Premier projet pour se lancer dans le développement web
+# LA TOU-DOU LISTE
 
-FAIT :
-1/ base de la to-do list : https://github.com/laminutedecode/Todo-List-Youtube
-2/ ajout du bouton "rayer la tâche"
-3/ ajout d'un caroussel d'images
-4/ ajout d'une grille avec des images
+:thumbsup: **Premier projet** pour se lancer dans le développement web.
 
-A FAIRE :
-5/ améliorer le design de la to-do list
-6/ ajouter un filtre tâches terminées/non terminées
-7/ pouvoir sauvegarder les tâches
+**Une to-do liste simple** avec les fonctionnalités essentielles.
 
-EDIT 18/09/2024 :
--retirer la grille d'image, le caroussel
--ajouter un moodSelector
+## A quoi ça sert ?
+
+- [x] enregistrer ta liste de tâches à faire
+
+- [x] modifier les tâches
+
+- [x] supprimer les tâches
+
+- [x] cocher les tâches réalisées
+
+- [x] filtrer celles qu'il te reste à faire
+
+- [x] trier la liste pour remonter les tâches qu'il te reste
+
+et
+
+- [x] **garder un oeil sur ta progression** et savoir combien de tâches tu as réalisé
+
+## A quoi ça ressemble ?
+
+![La to-do liste](images_to_dou_list/tou-dou_liste.png)
+![Rayer des tâches](images_to_dou_list/tou-dou_liste_rayer_taches.png)
+![Filtrer des tâches](images_to_dou_list/tou-dou_liste_filtrer_taches.png)
+![Trier les tâches](images_to_dou_list/tou-dou_liste_trier_taches.png)
+
+## Avec quels outils ?
+
+- Javascript
+
+#### Et avec l'aide de :
+
+- [La Minute De Code](https://github.com/laminutedecode) et ses précieux [fichiers et tutoriel video](https://github.com/laminutedecode/Todo-List-Youtube). Merci ! :raised_hands:
+
+- Notre ami ChatGPT
+
+## La suite ?
+
+- [ ]
+  Corriger les erreurs dans le code
+- [ ]
+  Améliorer le design
+
+## Une contribution ?
+
+Les commentaires constructifs sont les bienvenus. :ok_hand:

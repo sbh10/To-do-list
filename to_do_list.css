@@ -37,8 +37,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin: 0 auto; */
-  /*margin-bottom: 15px;*/
 }
 
 #counter {
@@ -53,6 +51,21 @@ body {
   color: rgba(148, 215, 190);
 }
 
+#progressContainer {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 20px;
+  margin-top: 10px;
+}
+
+#progressBar {
+  width: 0;
+  height: 100%;
+  background-color: #76c7c0;
+  transition: width 0.3s;
+}
 #filteredTasks {
   width: 50%;
   ul li {
@@ -96,15 +109,6 @@ input[type="text"] {
   margin-bottom: 10px;
   height: 40px;
   border-color: #1b1909;
-  justify-content: center;
-  align-items: center;
-}
-
-button {
-  margin-left: 5px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
 }
 
 ul {
@@ -113,18 +117,22 @@ ul {
   padding: 0;
 }
 
+button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 ul li {
-  width: auto;
   display: flex;
-  justify-content: space-evenly;
+  padding: 10px 20px;
   align-items: center;
   background-color: rgba(148, 215, 190, 0.2);
   color: #1b1909;
-  padding: 10px;
   border-radius: 5px;
   margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
+  justify-content: space-between;
 }
 
 ion-icon {
@@ -136,50 +144,17 @@ ion-icon {
   border-radius: 50%;
 }
 
-.delete {
-  background: #bdb04d;
-  color: #1b1909;
+.text-section {
+  flex: 1;
 }
 
-.modify {
-  background: #bdb04d;
-  color: #1b1909;
-}
-
-.uncheck {
-  background: #bdb04d;
-  color: #1b1909;
+.button-container {
+  display: flex;
+  gap: 10px;
 }
 
 .strikethrough {
   text-decoration: line-through;
-}
-
-.containerTracker {
-  display: flex;
-  justify-content: flex;
-  align-items: center;
-  flex-direction: column;
-  border: 1px solid #bdb04d;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: auto;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  padding: 10px;
-}
-
-.moodSelector {
-  display: inline-block;
-  gap: 10px;
-  margin-top: 30px;
-  justify-content: space-around;
-}
-
-#happy,
-#study,
-#sad {
-  border-radius: 50px;
 }
 
 @media (max-width: 600px) {
