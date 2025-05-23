@@ -25,7 +25,7 @@ function createTaskElements(li) {
   //INSERER LE BOUTON POUR COCHER UNE TACHE
   let uncheckButton = document.createElement("button");
   uncheckButton.innerHTML =
-    '<ion-icon name="square-outline" class="uncheck"></ion-icon>';
+    '<ion-icon name="checkbox-outline" class="uncheck"></ion-icon>';
   uncheckButton.onclick = function () {
     toggleStrikethrough(li);
   };

@@ -14,9 +14,9 @@ body {
   flex-direction: column;
   height: auto;
   margin: 0;
-  font-family: "Calibri";
+  font-family: "Quicksand", sans-serif;
   background: #fcfbf6;
-  color: #bdb04d;
+  color: #f9e79f;
 }
 
 .container {
@@ -33,7 +33,7 @@ body {
 
 .containerFilter {
   color: #1b1909;
-  font-family: "Calibri";
+  font-family: "Quicksand", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,7 +42,7 @@ body {
 #counter {
   margin-bottom: 20px;
   margin-top: 30px;
-  font-family: "Croissant One";
+  font-family: "Quicksand", sans-serif;
   font-weight: 900;
   font-size: large;
   display: flex;
@@ -69,21 +69,23 @@ body {
 #filteredTasks {
   width: 50%;
   ul li {
-    background-color: rgba(189, 176, 77, 0.4);
+    background-color: rgba(249, 231, 159, 0.4);
   }
 }
 
 #button_done {
-  background: rgba(189, 176, 77, 0.4);
-  border-style: solid;
-  border-color: #1b1909;
-  border-width: 1px;
-  border-radius: 5px;
-  padding: 8px;
+  background: rgba(249, 231, 159, 0.8); /* plus lumineux */
+  border: 1px solid #1b1909;
+  border-radius: 8px;
+  padding: 9px 16px;
+  color: #1b1909;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 #button_undone {
-  background: rgba(189, 176, 77, 0.4);
+  background: rgba(249, 231, 159, 0.4);
   border-style: solid;
   border-color: #1b1909;
   border-width: 1px;
@@ -94,12 +96,13 @@ body {
 h1 {
   margin-bottom: 20px;
   margin-top: 30px;
-  font-family: "Croissant One";
+  font-family: "Fredoka", sans-serif;
   font-weight: 900;
+  letter-spacing: 2px;
 }
 
 h2 {
-  font-family: "Croissant One";
+  font-family: "Fredoka", sans-serif;
 }
 
 input[type="text"] {
@@ -109,6 +112,8 @@ input[type="text"] {
   margin-bottom: 10px;
   height: 40px;
   border-color: #1b1909;
+  font-family: "Quicksand", sans-serif;
+  border-width: 1px;
 }
 
 ul {
@@ -121,6 +126,7 @@ button {
   background: transparent;
   border: none;
   cursor: pointer;
+  font-family: "Quicksand", sans-serif;
 }
 
 ul li {
@@ -131,17 +137,15 @@ ul li {
   color: #1b1909;
   border-radius: 5px;
   margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   justify-content: space-between;
 }
 
 ion-icon {
   font-size: 20px;
   margin-right: 2px;
-  background: #bdb04d;
   padding: 0.5rem;
   color: #1b1909;
-  border-radius: 50%;
 }
 
 .text-section {
