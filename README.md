@@ -28,7 +28,7 @@ et
 ![Rayer des tâches](images_to_dou_list/tou-dou_liste_rayer_taches.png)
 ![Filtrer des tâches](images_to_dou_list/tou-dou_liste_filtrer_taches.png)
 ![Trier les tâches](images_to_dou_list/tou-dou_liste_trier_taches.png)
-![Nouveau design] (images_to_dou_list/tou-dou_liste_nouveau design.png)
+![Nouveau design](images_to_dou_list/tou-dou_liste_nouveau_design.png)
 
 
 ## Avec quels outils ?
