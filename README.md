@@ -30,7 +30,6 @@ et
 ![Trier les tâches](images_to_dou_list/tou-dou_liste_trier_taches.png)
 ![Nouveau design](images_to_dou_list/tou-dou_liste_nouveau_design.png)
 
-
 ## Avec quels outils ?
 
 - Javascript
